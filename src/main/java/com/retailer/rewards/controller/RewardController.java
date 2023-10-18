@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RequestMapping("customer")
 @RestController
 public class RewardController {
@@ -27,7 +29,7 @@ public class RewardController {
     public ResponseEntity<Rewards> getRewardsByCustomerId(@PathVariable("customerId") Long customerId){
 
         Customer customer = customerRepository.findByCustomerId(customerId);
-        if(customer == null)
+        if(Objects.isNull(customer))
         {
             throw new RuntimeException("Invalid / Missing customer Id ");
         }
