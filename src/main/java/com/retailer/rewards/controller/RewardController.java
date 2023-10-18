@@ -23,12 +23,15 @@ public class RewardController {
     @Autowired
     CustomerRepository customerRepository;
 
-
+    @GetMapping(value = "/{customerId}/rewards",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rewards> getRewardsByCustomerId(@PathVariable("customerId") Long customerId){
 
-        Customer customer = .findById();
+        Customer customer = customerRepository.findByCustomerId(customerId);
+        if(customer == null)
+        {
+            throw new RuntimeException("Invalid / Missing customer Id ");
+        }
         Rewards customerRewards = rewardService.getRewardsByCustomerId(customerId);
         return new ResponseEntity<>(customerRewards, HttpStatus.OK);
     }
-
 }
